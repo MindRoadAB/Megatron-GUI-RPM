@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, insert, update, delete
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
+from collections import OrderedDict
 import pathlib
 import configparser
 
@@ -108,7 +109,7 @@ def upsert(table, data, org_id):
 
 
 def row2dict(row):
-    d = {}
+    d = OrderedDict()
     for column in row.__table__.columns:
         d[column.name] = getattr(row, column.name)
     return d
